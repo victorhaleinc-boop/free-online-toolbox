@@ -124,6 +124,16 @@ footer a{color:var(--accent)}
     <div class="tool-card" onclick="window.open('https://victorhaleinc-boop.github.io/free-resume-builder/','_blank')">
       <div class="icon">📋</div><h3>Resume Builder →</h3><p>Professional CV with PDF download</p>
     </div>
+    <div class="tool-card" onclick="showTool('jsonfmt')"><div class="icon">{ }</div><h3>JSON Formatter</h3><p>Format, validate & minify JSON</p></div>
+    <div class="tool-card" onclick="showTool('base64')"><div class="icon">64</div><h3>Base64 Encoder</h3><p>Encode/decode text to Base64</p></div>
+    <div class="tool-card" onclick="showTool('uuid')"><div class="icon">🆔</div><h3>UUID Generator</h3><p>Generate UUIDs v4 instantly</p></div>
+    <div class="tool-card" onclick="showTool('diff')"><div class="icon">≠</div><h3>Text Diff Checker</h3><p>Compare two texts line by line</p></div>
+    <div class="tool-card" onclick="showTool('wordcount')"><div class="icon">🔤</div><h3>Word Counter</h3><p>Count words, chars, sentences</p></div>
+    <div class="tool-card" onclick="showTool('lorem')"><div class="icon">📝</div><h3>Lorem Ipsum</h3><p>Generate placeholder text</p></div>
+    <div class="tool-card" onclick="showTool('hash')"><div class="icon">#</div><h3>Hash Generator</h3><p>MD5, SHA1, SHA256, SHA512</p></div>
+    <div class="tool-card" onclick="showTool('units')"><div class="icon">📏</div><h3>Unit Converter</h3><p>Length, weight, temp, volume</p></div>
+    <div class="tool-card" onclick="showTool('csvjson')"><div class="icon">📊</div><h3>CSV to JSON</h3><p>Convert CSV data to JSON</p></div>
+    <div class="tool-card" onclick="showTool('timezone')"><div class="icon">🕐</div><h3>Time Converter</h3><p>Convert between time zones</p></div>
   </div>
 
   <!-- INVOICE GENERATOR -->
@@ -197,6 +207,103 @@ footer a{color:var(--accent)}
     <div class="form-grid full"><div class="form-group"><label>Input</label><textarea id="urlInput" oninput="autoUrlCode()" style="min-height:80px" placeholder="Paste a URL or text to encode/decode"></textarea></div></div>
     <div class="btn-row"><button class="btn btn-primary" onclick="encodeUrl()">Encode</button><button class="btn btn-primary" onclick="decodeUrl()">Decode</button><button class="btn btn-secondary" onclick="copyUrlResult()">📋 Copy Result</button></div>
     <div class="output-box" id="urlOutput"></div>
+    </div>
+  </div>
+
+  <!-- JSON FORMATTER -->
+  <div class="tool-section" id="tool-jsonfmt">
+    <div class="back-btn" onclick="showTools()">← Back to all tools</div>
+    <div class="card"><h2>{ } JSON Formatter / Validator</h2>
+    <div class="form-grid full"><div class="form-group"><label>Paste JSON</label><textarea id="jsonIn" oninput="autoFmtJSON()" style="min-height:120px;font-family:monospace" placeholder='{"name":"John","age":30}'></textarea></div></div>
+    <div class="btn-row"><button class="btn btn-primary" onclick="fmtJSON()">Format</button><button class="btn btn-secondary" onclick="minifyJSON()">Minify</button><button class="btn btn-secondary" onclick="copyJSON()">📋 Copy</button></div>
+    <div class="output-box" id="jsonOut" style="font-family:monospace;max-height:300px;overflow-y:auto"></div>
+    </div>
+  </div>
+
+  <!-- BASE64 -->
+  <div class="tool-section" id="tool-base64">
+    <div class="back-btn" onclick="showTools()">← Back to all tools</div>
+    <div class="card"><h2>64 Base64 Encoder / Decoder</h2>
+    <div class="form-grid full"><div class="form-group"><label>Input</label><textarea id="b64In" style="min-height:80px" placeholder="Enter text to encode or Base64 to decode"></textarea></div></div>
+    <div class="btn-row"><button class="btn btn-primary" onclick="encodeB64()">Encode</button><button class="btn btn-primary" onclick="decodeB64()">Decode</button><button class="btn btn-secondary" onclick="copyB64()">📋 Copy</button></div>
+    <div class="output-box" id="b64Out" style="word-break:break-all"></div>
+    </div>
+  </div>
+
+  <!-- UUID -->
+  <div class="tool-section" id="tool-uuid">
+    <div class="back-btn" onclick="showTools()">← Back to all tools</div>
+    <div class="card"><h2>🆔 UUID Generator</h2>
+    <div class="btn-row"><button class="btn btn-primary" onclick="genUUID()">Generate UUID v4</button><button class="btn btn-primary" onclick="genUUIDs(5)">Generate 5</button><button class="btn btn-primary" onclick="genUUIDs(10)">Generate 10</button></div>
+    <div class="output-box" id="uuidOut" style="font-family:monospace"></div>
+    </div>
+  </div>
+
+  <!-- TEXT DIFF -->
+  <div class="tool-section" id="tool-diff">
+    <div class="back-btn" onclick="showTools()">← Back to all tools</div>
+    <div class="card"><h2>≠ Text Diff Checker</h2>
+    <div class="form-grid full"><div class="form-group"><label>Original Text</label><textarea id="diffA" oninput="runDiff()" style="min-height:80px;font-family:monospace" placeholder="Paste original text"></textarea></div></div>
+    <div class="form-grid full"><div class="form-group"><label>Modified Text</label><textarea id="diffB" oninput="runDiff()" style="min-height:80px;font-family:monospace" placeholder="Paste modified text"></textarea></div></div>
+    <div class="output-box" id="diffOut" style="font-family:monospace;max-height:300px;overflow-y:auto"></div>
+    </div>
+  </div>
+
+  <!-- WORD COUNTER -->
+  <div class="tool-section" id="tool-wordcount">
+    <div class="back-btn" onclick="showTools()">← Back to all tools</div>
+    <div class="card"><h2>🔤 Word / Character Counter</h2>
+    <div class="form-grid full"><div class="form-group"><label>Paste or type text</label><textarea id="wcIn" oninput="countWords()" style="min-height:120px" placeholder="Type or paste text here..."></textarea></div></div>
+    <div class="output-box" id="wcOut" style="display:flex;gap:2rem;flex-wrap:wrap;font-size:0.9rem"></div>
+    </div>
+  </div>
+
+  <!-- LOREM IPSUM -->
+  <div class="tool-section" id="tool-lorem">
+    <div class="back-btn" onclick="showTools()">← Back to all tools</div>
+    <div class="card"><h2>📝 Lorem Ipsum Generator</h2>
+    <div class="form-grid"><div class="form-group"><label>Paragraphs</label><input id="loremP" type="number" value="3" min="1" max="20"></div><div class="form-group"><label>Sentences per paragraph</label><input id="loremS" type="number" value="4" min="1" max="10"></div></div>
+    <div class="btn-row"><button class="btn btn-primary" onclick="genLorem()">Generate</button><button class="btn btn-secondary" onclick="copyLorem()">📋 Copy</button></div>
+    <div class="output-box" id="loremOut"></div>
+    </div>
+  </div>
+
+  <!-- HASH -->
+  <div class="tool-section" id="tool-hash">
+    <div class="back-btn" onclick="showTools()">← Back to all tools</div>
+    <div class="card"><h2># Hash Generator</h2>
+    <div class="form-grid full"><div class="form-group"><label>Input Text</label><textarea id="hashIn" oninput="genHashes()" style="min-height:60px" placeholder="Enter text to hash"></textarea></div></div>
+    <div class="output-box" id="hashOut" style="font-family:monospace;font-size:0.8rem;line-height:2"></div>
+    </div>
+  </div>
+
+  <!-- UNIT CONVERTER -->
+  <div class="tool-section" id="tool-units">
+    <div class="back-btn" onclick="showTools()">← Back to all tools</div>
+    <div class="card"><h2>📏 Unit Converter</h2>
+    <div class="form-grid"><div class="form-group"><label>Type</label><select id="unitType" onchange="convertUnit()"><option value="length">Length</option><option value="weight">Weight</option><option value="temp">Temperature</option><option value="volume">Volume</option><option value="area">Area</option><option value="speed">Speed</option></select></div><div class="form-group"><label>Value</label><input id="unitVal" type="number" value="1" oninput="convertUnit()"></div></div>
+    <div class="form-grid" style="margin-top:0.5rem"><div class="form-group"><label>From</label><select id="unitFrom" onchange="convertUnit()"></select></div><div class="form-group"><label>To</label><select id="unitTo" onchange="convertUnit()"></select></div></div>
+    <div class="output-box" id="unitOut" style="font-size:1.1rem;text-align:center;font-weight:600"></div>
+    </div>
+  </div>
+
+  <!-- CSV TO JSON -->
+  <div class="tool-section" id="tool-csvjson">
+    <div class="back-btn" onclick="showTools()">← Back to all tools</div>
+    <div class="card"><h2>📊 CSV to JSON Converter</h2>
+    <div class="form-grid full"><div class="form-group"><label>Paste CSV</label><textarea id="csvIn" oninput="csv2json()" style="min-height:100px;font-family:monospace" placeholder="name,age,city&#10;John,30,NYC&#10;Jane,25,LA"></textarea></div></div>
+    <div class="btn-row"><button class="btn btn-secondary" onclick="copyCSVJSON()">📋 Copy JSON</button></div>
+    <div class="output-box" id="csvOut" style="font-family:monospace;max-height:300px;overflow-y:auto;font-size:0.8rem"></div>
+    </div>
+  </div>
+
+  <!-- TIMEZONE CONVERTER -->
+  <div class="tool-section" id="tool-timezone">
+    <div class="back-btn" onclick="showTools()">← Back to all tools</div>
+    <div class="card"><h2>🕐 Time Zone Converter</h2>
+    <div class="form-grid"><div class="form-group"><label>Date & Time</label><input id="tzTime" type="datetime-local" oninput="convertTZ()"></div><div class="form-group"><label>From Timezone</label><select id="tzFrom" onchange="convertTZ()"><option value="America/New_York">US Eastern (EST)</option><option value="America/Chicago">US Central (CST)</option><option value="America/Denver">US Mountain (MST)</option><option value="America/Los_Angeles">US Pacific (PST)</option><option value="Europe/London">London (GMT)</option><option value="Europe/Paris">Paris (CET)</option><option value="Asia/Tokyo">Tokyo (JST)</option><option value="Asia/Shanghai">Shanghai (CST)</option><option value="Asia/Dubai">Dubai (GST)</option><option value="Australia/Sydney">Sydney (AEST)</option><option value="Africa/Johannesburg" selected>Johannesburg (SAST)</option><option value="UTC">UTC</option></select></div></div>
+    <div class="form-grid full" style="margin-top:0.5rem"><div class="form-group"><label>To Timezone</label><select id="tzTo" onchange="convertTZ()"><option value="America/New_York">US Eastern (EST)</option><option value="America/Los_Angeles">US Pacific (PST)</option><option value="Europe/London">London (GMT)</option><option value="Europe/Paris">Paris (CET)</option><option value="Asia/Tokyo">Tokyo (JST)</option><option value="Asia/Shanghai">Shanghai (CST)</option><option value="Asia/Dubai">Dubai (GST)</option><option value="Australia/Sydney">Sydney (AEST)</option><option value="Africa/Johannesburg">Johannesburg (SAST)</option><option value="UTC" selected>UTC</option></select></div></div>
+    <div class="output-box" id="tzOut" style="font-size:1rem;text-align:center"></div>
     </div>
   </div>
 
@@ -365,6 +472,50 @@ function autoUrlCode(){
   if(v.includes('%'))document.getElementById('urlOutput').textContent=decodeURIComponent(v);
 }
 function copyUrlResult(){navigator.clipboard.writeText(document.getElementById('urlOutput').textContent);alert('Copied!')}
+
+// JSON Formatter
+function fmtJSON(){try{const j=JSON.parse(document.getElementById('jsonIn').value);document.getElementById('jsonOut').textContent=JSON.stringify(j,null,2)}catch(e){document.getElementById('jsonOut').textContent='❌ Invalid JSON: '+e.message}}
+function minifyJSON(){try{const j=JSON.parse(document.getElementById('jsonIn').value);document.getElementById('jsonOut').textContent=JSON.stringify(j)}catch(e){document.getElementById('jsonOut').textContent='❌ Invalid JSON: '+e.message}}
+function autoFmtJSON(){try{const j=JSON.parse(document.getElementById('jsonIn').value);document.getElementById('jsonOut').textContent=JSON.stringify(j,null,2)}catch(e){document.getElementById('jsonOut').textContent=''}}
+function copyJSON(){navigator.clipboard.writeText(document.getElementById('jsonOut').textContent);alert('Copied!')}
+
+// Base64
+function encodeB64(){document.getElementById('b64Out').textContent=btoa(unescape(encodeURIComponent(document.getElementById('b64In').value)))}
+function decodeB64(){try{document.getElementById('b64Out').textContent=decodeURIComponent(escape(atob(document.getElementById('b64In').value)))}catch(e){document.getElementById('b64Out').textContent='❌ Invalid Base64'}}
+function copyB64(){navigator.clipboard.writeText(document.getElementById('b64Out').textContent);alert('Copied!')}
+
+// UUID
+function genUUID(){document.getElementById('uuidOut').textContent=crypto.randomUUID()}
+function genUUIDs(n){let out='';for(let i=0;i<n;i++)out+=crypto.randomUUID()+'\n';document.getElementById('uuidOut').textContent=out.trim()}
+
+// Text Diff
+function runDiff(){const a=document.getElementById('diffA').value.split('\n'),b=document.getElementById('diffB').value.split('\n');let out='';const max=Math.max(a.length,b.length);for(let i=0;i<max;i++){const la=a[i]||'',lb=b[i]||'';if(la===lb)out+=`  ${la}\n`;else out+=`- ${la}\n+ ${lb}\n`}document.getElementById('diffOut').textContent=out||'Enter text in both fields'}
+
+// Word Counter
+function countWords(){const t=document.getElementById('wcIn').value;const w=t.trim()?t.trim().split(/\s+/).length:0;const c=t.length;const cc=t.replace(/\s/g,'').length;const s=t.split(/[.!?]+/).filter(Boolean).length;const p=t.trim()?t.trim().split(/\n\s*\n/).length:0;document.getElementById('wcOut').innerHTML=`<div><strong>Words</strong><br>${w}</div><div><strong>Characters</strong><br>${c}</div><div><strong>No Spaces</strong><br>${cc}</div><div><strong>Sentences</strong><br>${s}</div><div><strong>Paragraphs</strong><br>${p}</div>`}
+
+// Lorem Ipsum
+const LOREM='lorem ipsum dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua ut enim ad minim veniam quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur excepteur sint occaecat cupidatat non proident sunt in culpa qui officia deserunt mollit anim id est laborum'.split(' ');
+function genLorem(){const p=parseInt(document.getElementById('loremP').value)||3;const s=parseInt(document.getElementById('loremS').value)||4;let out='';for(let i=0;i<p;i++){let para='';for(let j=0;j<s;j++){let words=8+Math.floor(Math.random()*12);let sent='';for(let k=0;k<words;k++)sent+=LOREM[Math.floor(Math.random()*LOREM.length)]+(k===words-1?'.':' ');para+=sent.charAt(0).toUpperCase()+sent.slice(1)+' '}out+=para.trim()+'\n\n'}document.getElementById('loremOut').textContent=out.trim()}
+function copyLorem(){navigator.clipboard.writeText(document.getElementById('loremOut').textContent);alert('Copied!')}
+
+// Hash Generator
+async function genHashes(){const t=document.getElementById('hashIn').value;if(!t){document.getElementById('hashOut').innerHTML='';return}const enc=new TextEncoder().encode(t);const md5=await crypto.subtle.digest('MD5',enc);const sha1=await crypto.subtle.digest('SHA-1',enc);const sha256=await crypto.subtle.digest('SHA-256',enc);const sha512=await crypto.subtle.digest('SHA-512',enc);const hex=b=>Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('');document.getElementById('hashOut').innerHTML=`MD5: ${hex(md5)}<br>SHA1: ${hex(sha1)}<br>SHA256: ${hex(sha256)}<br>SHA512: ${hex(sha512)}`}
+
+// Unit Converter
+const units={length:{m:1,km:1000,cm:0.01,mm:0.001,mi:1609.34,yd:0.9144,ft:0.3048,inch:0.0254},weight:{kg:1,g:0.001,mg:1e-6,lb:0.453592,oz:0.0283495},volume:{l:1,ml:0.001,gal:3.78541,qt:0.946353,pt:0.473176,cup:0.236588,floz:0.0295735},area:{m2:1,km2:1e6,ha:10000,acre:4046.86,ft2:0.092903},speed:{ms:1,kmh:0.277778,mph:0.44704,knot:0.514444}};
+const unitNames={length:{m:'Meter',km:'Kilometer',cm:'Centimeter',mm:'Millimeter',mi:'Mile',yd:'Yard',ft:'Foot',inch:'Inch'},weight:{kg:'Kilogram',g:'Gram',mg:'Milligram',lb:'Pound',oz:'Ounce'},temp:{c:'Celsius',f:'Fahrenheit',k:'Kelvin'},volume:{l:'Liter',ml:'Milliliter',gal:'Gallon',qt:'Quart',pt:'Pint',cup:'Cup',floz:'Fluid Ounce'},area:{m2:'m²',km2:'km²',ha:'Hectare',acre:'Acre',ft2:'ft²'},speed:{ms:'m/s',kmh:'km/h',mph:'mph',knot:'Knot'}};
+function populateUnits(){const t=document.getElementById('unitType').value;const u=t==='temp'?['c','f','k']:Object.keys(units[t]);const s=u.map(k=>`<option value="${k}">${unitNames[t][k]}</option>`).join('');document.getElementById('unitFrom').innerHTML=s;document.getElementById('unitTo').innerHTML=s;if(u.length>1)document.getElementById('unitTo').selectedIndex=1;convertUnit()}
+function convertUnit(){const type=document.getElementById('unitType').value;const val=parseFloat(document.getElementById('unitVal').value)||1;const from=document.getElementById('unitFrom').value;const to=document.getElementById('unitTo').value;let result;if(type==='temp'){let c;if(from==='c')c=val;else if(from==='f')c=(val-32)*5/9;else c=val-273.15;if(to==='c')result=c;else if(to==='f')result=c*9/5+32;else result=c+273.15}else{const base=val*units[type][from];result=base/units[type][to]}document.getElementById('unitOut').textContent=`${val} ${unitNames[type][from]} = ${result.toFixed(6)} ${unitNames[type][to]}`}
+populateUnits();
+
+// CSV to JSON
+function csv2json(){const csv=document.getElementById('csvIn').value.trim();if(!csv){document.getElementById('csvOut').textContent='';return}const lines=csv.split('\n').filter(l=>l.trim());if(lines.length<2){document.getElementById('csvOut').textContent='Need at least header + 1 data row';return}const headers=lines[0].split(',').map(h=>h.trim());const data=lines.slice(1).map(l=>{const vals=l.split(',');const obj={};headers.forEach((h,i)=>obj[h]=vals[i]?vals[i].trim():'');return obj});try{document.getElementById('csvOut').textContent=JSON.stringify(data,null,2)}catch(e){document.getElementById('csvOut').textContent='Error: '+e.message}}
+function copyCSVJSON(){navigator.clipboard.writeText(document.getElementById('csvOut').textContent);alert('Copied!')}
+
+// Timezone
+function convertTZ(){const dt=document.getElementById('tzTime').value;if(!dt){document.getElementById('tzOut').textContent='Select a date and time';return}const d=new Date(dt);const from=document.getElementById('tzFrom').value;const to=document.getElementById('tzTo').value;try{const fromStr=d.toLocaleString('en-US',{timeZone:from,dateStyle:'full',timeStyle:'long'});const toStr=d.toLocaleString('en-US',{timeZone:to,dateStyle:'full',timeStyle:'long'});document.getElementById('tzOut').innerHTML=`<div style="margin-bottom:0.5rem">${fromStr}<br><span style="color:var(--muted);font-size:0.8rem">${from}</span></div><div style="font-size:1.5rem;color:var(--accent)">⬇</div><div style="margin-top:0.5rem">${toStr}<br><span style="color:var(--muted);font-size:0.8rem">${to}</span></div>`}catch(e){document.getElementById('tzOut').textContent='Time zone conversion error'}}
+document.getElementById('tzTime').value=new Date().toISOString().slice(0,16);convertTZ();
 </script>
 </body>
 </html>
