@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free Online Tools - No Sign-Up Required</title>
+<meta name="description" content="Free online tools: Invoice Generator, QR Code Maker, Password Generator, Color Tools, Markdown Preview, and more. No sign-up, no ads, 100% private.">
+<style>
+:root{--bg:#0f172a;--card:#1e293b;--border:#334155;--text:#e2e8f0;--muted:#94a3b8;--accent:#3b82f6;--success:#22c55e;--danger:#ef4444}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh}
+.container{max-width:1100px;margin:0 auto;padding:1.5rem}
+
+header{text-align:center;padding:2.5rem 1rem 2rem;background:linear-gradient(135deg,#1e293b,#0f172a);border-bottom:1px solid var(--border)}
+header h1{font-size:2.2rem;font-weight:800}
+header p{color:var(--muted);font-size:1.05rem;margin-top:0.5rem}
+header .badge{display:inline-block;background:var(--success);color:#000;padding:0.2rem 0.7rem;border-radius:20px;font-size:0.8rem;font-weight:600;margin-bottom:0.5rem}
+
+.tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem;margin-top:1.5rem}
+.tool-card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.25rem;cursor:pointer;transition:all 0.2s}
+.tool-card:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:0 8px 25px rgba(59,130,246,0.15)}
+.tool-card .icon{font-size:2rem;margin-bottom:0.5rem}
+.tool-card h3{font-size:1.1rem;margin-bottom:0.25rem}
+.tool-card p{color:var(--muted);font-size:0.85rem}
+
+.tool-section{display:none;margin-top:1rem}
+.tool-section.active{display:block}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;padding:1.5rem;margin-bottom:1rem}
+.card h2{font-size:1.2rem;color:var(--accent);margin-bottom:1rem;display:flex;align-items:center;gap:0.5rem}
+
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:0.75rem}
+.form-grid.full{grid-template-columns:1fr}
+.form-group{display:flex;flex-direction:column;gap:0.2rem}
+.form-group label{font-size:0.75rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;font-weight:600}
+.form-group input,.form-group textarea,.form-group select{background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:0.65rem;color:var(--text);font-size:0.9rem;font-family:inherit;transition:border-color 0.2s}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(59,130,246,0.15)}
+.form-group textarea{resize:vertical;min-height:80px}
+
+.btn{padding:0.65rem 1.25rem;border:none;border-radius:8px;font-size:0.85rem;font-weight:600;cursor:pointer;transition:all 0.2s;font-family:inherit}
+.btn-primary{background:var(--accent);color:white}
+.btn-primary:hover{background:#2563eb;transform:translateY(-1px)}
+.btn-secondary{background:var(--border);color:var(--text)}
+.btn-secondary:hover{background:#475569}
+.btn-success{background:var(--success);color:#000}
+.btn-success:hover{filter:brightness(1.1)}
+.btn-row{display:flex;gap:0.5rem;margin-top:1rem;flex-wrap:wrap;align-items:center}
+.output-box{background:#0f172a;border:1px solid var(--border);border-radius:8px;padding:1rem;margin-top:1rem;word-break:break-all;font-family:monospace;min-height:40px;white-space:pre-wrap}
+
+.back-btn{margin-bottom:1rem;display:inline-flex;align-items:center;gap:0.3rem;color:var(--accent);cursor:pointer;font-size:0.9rem}
+.back-btn:hover{text-decoration:underline}
+
+.color-preview{width:100%;height:100px;border-radius:8px;margin-top:0.5rem;border:1px solid var(--border);transition:background 0.3s}
+.palette{display:flex;gap:0.5rem;flex-wrap:wrap;margin-top:1rem}
+.palette-swatch{width:80px;height:80px;border-radius:8px;cursor:pointer;border:2px solid transparent;transition:border-color 0.2s;display:flex;align-items:flex-end;justify-content:center;padding:0.25rem}
+.palette-swatch:hover{border-color:var(--accent)}
+.palette-swatch span{background:rgba(0,0,0,0.6);color:white;font-size:0.65rem;padding:0.1rem 0.3rem;border-radius:4px}
+
+.qr-container{display:flex;gap:1rem;align-items:flex-start;flex-wrap:wrap}
+.qr-preview{background:white;padding:1rem;border-radius:8px;display:inline-block}
+.qr-preview canvas{display:block}
+
+.pw-strength{height:4px;border-radius:2px;margin-top:0.5rem;transition:all 0.3s}
+.pw-strength.weak{background:var(--danger);width:33%}
+.pw-strength.medium{background:#f59e0b;width:66%}
+.pw-strength.strong{background:var(--success);width:100%}
+
+.support-banner{background:linear-gradient(135deg,#1e40af,#3b82f6,#8b5cf6);border-radius:12px;padding:1.5rem;text-align:center;margin:2rem 0;border:1px solid #3b82f6}
+.support-banner h3{color:white;margin-bottom:0.5rem}
+.support-banner p{color:rgba(255,255,255,0.8);font-size:0.9rem;margin-bottom:1rem}
+.support-btn{display:inline-block;background:white;color:#1e40af;padding:0.7rem 2rem;border-radius:8px;font-weight:700;text-decoration:none;transition:transform 0.2s}
+.support-btn:hover{transform:scale(1.05)}
+
+footer{text-align:center;padding:2rem;color:var(--muted);font-size:0.8rem;border-top:1px solid var(--border);margin-top:2rem}
+footer a{color:var(--accent)}
+
+.md-preview{border:1px solid var(--border);border-radius:8px;padding:1rem;margin-top:1rem;min-height:80px;background:#0f172a}
+.md-preview h1,.md-preview h2,.md-preview h3{color:var(--text)}
+.md-preview code{background:#1e293b;padding:0.1rem 0.3rem;border-radius:4px}
+.md-preview pre{background:#1e293b;padding:0.75rem;border-radius:8px;overflow-x:auto}
+.md-preview a{color:var(--accent)}
+.md-preview blockquote{border-left:3px solid var(--accent);padding-left:1rem;color:var(--muted)}
+
+.items-table{width:100%;border-collapse:collapse}
+.items-table th{text-align:left;padding:0.5rem;font-size:0.7rem;text-transform:uppercase;color:var(--muted);border-bottom:2px solid var(--border)}
+.items-table td{padding:0.4rem;border-bottom:1px solid var(--border)}
+.items-table input{width:100%;background:#0f172a;border:1px solid var(--border);border-radius:6px;padding:0.5rem;color:var(--text);font-size:0.85rem;font-family:inherit}
+.items-table input.qty{width:60px;text-align:center}
+.items-table input.rate{width:100px;text-align:right}
+.summary-row{display:flex;justify-content:flex-end;gap:2rem;padding:0.2rem 0;font-size:0.9rem}
+.summary-row.total{font-size:1.2rem;font-weight:700;border-top:2px solid var(--border);margin-top:0.5rem;padding-top:0.5rem}
+
+@media(max-width:640px){.form-grid{grid-template-columns:1fr}.tools-grid{grid-template-columns:1fr}header h1{font-size:1.6rem}}
+</style>
+</head>
+<body>
+
+<header>
+  <span class="badge">✓ All Free</span>
+  <h1>🛠️ Free Online Tools</h1>
+  <p>Invoice Generator · QR Codes · Passwords · Colors · Markdown · URL Tools · and more</p>
+  <p style="font-size:0.8rem;color:var(--muted)">No sign-up. No ads. Everything processed in your browser. 100% private.</p>
+</header>
+
+<div class="container">
+  <div class="tools-grid" id="toolsGrid">
+    <div class="tool-card" onclick="showTool('invoice')">
+      <div class="icon">📄</div><h3>Invoice Generator</h3><p>Professional invoices with PDF download</p>
+    </div>
+    <div class="tool-card" onclick="showTool('qrcode')">
+      <div class="icon">📱</div><h3>QR Code Generator</h3><p>Create QR codes for any URL or text</p>
+    </div>
+    <div class="tool-card" onclick="showTool('password')">
+      <div class="icon">🔐</div><h3>Password Generator</h3><p>Strong random passwords with strength check</p>
+    </div>
+    <div class="tool-card" onclick="showTool('colors')">
+      <div class="icon">🎨</div><h3>Color Tools</h3><p>HEX/RGB/HSL converter + palette generator</p>
+    </div>
+    <div class="tool-card" onclick="showTool('markdown')">
+      <div class="icon">📝</div><h3>Markdown Preview</h3><p>Write and preview markdown in real-time</p>
+    </div>
+    <div class="tool-card" onclick="showTool('urlcode')">
+      <div class="icon">🔗</div><h3>URL Encoder/Decoder</h3><p>Encode & decode URLs instantly</p>
+    </div>
+  </div>
+
+  <!-- INVOICE GENERATOR -->
+  <div class="tool-section" id="tool-invoice">
+    <div class="back-btn" onclick="showTools()">← Back to all tools</div>
+    <div class="card"><h2>📄 Invoice Generator</h2>
+    <div class="form-grid"><div class="form-group"><label>Company</label><input id="invCo" placeholder="Your Company Inc."></div><div class="form-group"><label>Email</label><input id="invCoEmail" type="email" placeholder="you@company.com"></div></div>
+    <div class="form-grid" style="margin-top:0.75rem"><div class="form-group"><label>Client</label><input id="invClient" placeholder="Client Name"></div><div class="form-group"><label>Client Email</label><input id="invClientEmail" type="email" placeholder="client@example.com"></div></div>
+    <div class="form-grid" style="margin-top:0.75rem"><div class="form-group"><label>Invoice #</label><input id="invNum" value="INV-2026-001"></div><div class="form-group"><label>Date</label><input id="invDate" type="date"></div></div>
+    <table class="items-table" style="margin-top:1rem"><thead><tr><th>Description</th><th>Qty</th><th>Rate</th><th>Amount</th><th></th></tr></thead><tbody id="invItems"><tr><td><input class="desc" placeholder="Service"></td><td><input class="qty" value="1" min="1" onchange="calcInv()"></td><td><input class="rate" value="500" min="0" step="0.01" onchange="calcInv()"></td><td class="total-cell">$500.00</td><td><button class="btn btn-secondary" onclick="removeInvItem(this)" style="padding:0.3rem 0.5rem;font-size:0.7rem">✕</button></td></tr></tbody></table>
+    <div class="btn-row"><button class="btn btn-secondary" onclick="addInvItem()">+ Add Item</button></div>
+    <div style="text-align:right;padding:1rem 0"><div class="summary-row"><span>Subtotal:</span><span id="invSubtotal">$500.00</span></div><div class="summary-row total"><span>Total:</span><span id="invTotal">$500.00</span></div></div>
+    <div class="btn-row"><button class="btn btn-success" onclick="window.print()">📥 Download PDF</button></div>
+    </div>
+  </div>
+
+  <!-- QR CODE -->
+  <div class="tool-section" id="tool-qrcode">
+    <div class="back-btn" onclick="showTools()">← Back to all tools</div>
+    <div class="card"><h2>📱 QR Code Generator</h2>
+    <div class="qr-container">
+      <div><div class="form-group"><label>Text or URL</label><textarea id="qrText" placeholder="https://example.com or any text" style="width:300px;min-height:80px">https://victorhaleinc-boop.github.io/toolbox/</textarea></div>
+      <div class="form-group" style="margin-top:0.5rem"><label>Size</label><select id="qrSize" onchange="genQR()"><option value="200">Small (200px)</option><option value="300" selected>Medium (300px)</option><option value="400">Large (400px)</option></select></div>
+      <div class="btn-row"><button class="btn btn-primary" onclick="genQR()">Generate QR Code</button></div></div>
+      <div class="qr-preview" id="qrPreview"></div>
+    </div>
+    </div>
+  </div>
+
+  <!-- PASSWORD GENERATOR -->
+  <div class="tool-section" id="tool-password">
+    <div class="back-btn" onclick="showTools()">← Back to all tools</div>
+    <div class="card"><h2>🔐 Password Generator</h2>
+    <div class="form-grid"><div class="form-group"><label>Length</label><input id="pwLen" type="number" value="16" min="8" max="64"></div><div class="form-group"><label> </label><div style="display:flex;gap:1rem;padding-top:0.5rem"><label style="display:flex;align-items:center;gap:0.3rem;font-size:0.85rem"><input type="checkbox" id="pwUpper" checked> A-Z</label><label style="display:flex;align-items:center;gap:0.3rem;font-size:0.85rem"><input type="checkbox" id="pwLower" checked> a-z</label><label style="display:flex;align-items:center;gap:0.3rem;font-size:0.85rem"><input type="checkbox" id="pwDigits" checked> 0-9</label><label style="display:flex;align-items:center;gap:0.3rem;font-size:0.85rem"><input type="checkbox" id="pwSymbols" checked> !@#</label></div></div></div>
+    <div class="btn-row"><button class="btn btn-primary" onclick="genPassword()">Generate Password</button><button class="btn btn-secondary" onclick="copyPw()">📋 Copy</button></div>
+    <div class="output-box" id="pwOutput" style="font-size:1.2rem;text-align:center;letter-spacing:0.1em">Click Generate</div>
+    <div class="pw-strength" id="pwStrength"></div>
+    <div id="pwStrengthLabel" style="font-size:0.75rem;color:var(--muted);margin-top:0.25rem"></div>
+    </div>
+  </div>
+
+  <!-- COLOR TOOLS -->
+  <div class="tool-section" id="tool-colors">
+    <div class="back-btn" onclick="showTools()">← Back to all tools</div>
+    <div class="card"><h2>🎨 Color Tools</h2>
+    <div class="form-grid"><div class="form-group"><label>HEX Color</label><input id="colorHex" value="#3b82f6" placeholder="#3b82f6" oninput="updateColor()"></div><div class="form-group"><label>Pick a Color</label><input type="color" id="colorPicker" value="#3b82f6" oninput="document.getElementById('colorHex').value=this.value;updateColor()" style="padding:0.2rem;height:40px;cursor:pointer"></div></div>
+    <div class="color-preview" id="colorPreview" style="background:#3b82f6"></div>
+    <div style="margin-top:0.75rem;display:flex;gap:1rem;flex-wrap:wrap">
+      <div class="form-group"><label>RGB</label><input id="colorRGB" value="rgb(59, 130, 246)" readonly></div>
+      <div class="form-group"><label>HSL</label><input id="colorHSL" value="hsl(217, 91%, 60%)" readonly></div>
+    </div>
+    <div class="btn-row"><button class="btn btn-primary" onclick="genPalette()">Generate Palette</button></div>
+    <div class="palette" id="paletteContainer"></div>
+    </div>
+  </div>
+
+  <!-- MARKDOWN PREVIEW -->
+  <div class="tool-section" id="tool-markdown">
+    <div class="back-btn" onclick="showTools()">← Back to all tools</div>
+    <div class="card"><h2>📝 Markdown Preview</h2>
+    <div class="form-grid full"><div class="form-group"><label>Markdown Input</label><textarea id="mdInput" oninput="updateMD()" style="min-height:150px" placeholder="# Hello World&#10;&#10;This is **bold** and *italic*.&#10;&#10;- List item 1&#10;- List item 2&#10;&#10;`inline code`&#10;&#10;> A blockquote"></textarea></div></div>
+    <div class="form-group full" style="margin-top:0.75rem"><label>Preview</label><div class="md-preview" id="mdPreview"></div></div>
+    <div class="btn-row"><button class="btn btn-secondary" onclick="copyMD()">📋 Copy HTML</button></div>
+    </div>
+  </div>
+
+  <!-- URL ENCODER/DECODER -->
+  <div class="tool-section" id="tool-urlcode">
+    <div class="back-btn" onclick="showTools()">← Back to all tools</div>
+    <div class="card"><h2>🔗 URL Encoder / Decoder</h2>
+    <div class="form-grid full"><div class="form-group"><label>Input</label><textarea id="urlInput" oninput="autoUrlCode()" style="min-height:80px" placeholder="Paste a URL or text to encode/decode"></textarea></div></div>
+    <div class="btn-row"><button class="btn btn-primary" onclick="encodeUrl()">Encode</button><button class="btn btn-primary" onclick="decodeUrl()">Decode</button><button class="btn btn-secondary" onclick="copyUrlResult()">📋 Copy Result</button></div>
+    <div class="output-box" id="urlOutput"></div>
+    </div>
+  </div>
+
+  <!-- SUPPORT BANNER -->
+  <div class="support-banner" id="supportBanner">
+    <h3>⭐ Support These Free Tools</h3>
+    <p>All tools are free forever, with no ads and no tracking. If they save you time, consider supporting with a small contribution.</p>
+    <a class="support-btn" href="https://paypal.me/mardanamerica/10" target="_blank">💝 Support with $10 via PayPal</a>
+    <p style="font-size:0.75rem;margin-top:0.5rem;opacity:0.7">Every bit helps keep these tools free for everyone.</p>
+  </div>
+
+</div>
+
+<footer><p>Free Online Tools © 2026 · 100% Private · No Data Collected · <a href="https://paypal.me/mardanamerica">Support the Creator</a></p></footer>
+
+<script>
+// Navigation
+function showTool(name){
+  document.getElementById('toolsGrid').style.display='none';
+  document.getElementById('supportBanner').style.display='none';
+  document.querySelectorAll('.tool-section').forEach(s=>s.classList.remove('active'));
+  document.getElementById('tool-'+name).classList.add('active');
+}
+function showTools(){
+  document.getElementById('toolsGrid').style.display='';
+  document.getElementById('supportBanner').style.display='';
+  document.querySelectorAll('.tool-section').forEach(s=>s.classList.remove('active'));
+}
+
+// Invoice
+document.getElementById('invDate').value=new Date().toISOString().split('T')[0];
+function addInvItem(){
+  const r=document.createElement('tr');
+  r.innerHTML='<td><input class="desc" placeholder="Service"></td><td><input class="qty" value="1" min="1" onchange="calcInv()"></td><td><input class="rate" value="0" min="0" step="0.01" onchange="calcInv()"></td><td class="total-cell">$0.00</td><td><button class="btn btn-secondary" onclick="removeInvItem(this)" style="padding:0.3rem 0.5rem;font-size:0.7rem">✕</button></td>';
+  document.getElementById('invItems').appendChild(r);
+  calcInv();
+}
+function removeInvItem(btn){
+  const rows=document.querySelectorAll('#invItems tr');
+  if(rows.length<=1)return;
+  btn.closest('tr').remove();
+  calcInv();
+}
+function calcInv(){
+  let t=0;
+  document.querySelectorAll('#invItems tr').forEach(r=>{
+    const q=parseFloat(r.querySelector('.qty').value)||0;
+    const rt=parseFloat(r.querySelector('.rate').value)||0;
+    const s=q*rt;
+    r.querySelector('.total-cell').textContent='$'+s.toFixed(2);
+    t+=s;
+  });
+  document.getElementById('invSubtotal').textContent='$'+t.toFixed(2);
+  document.getElementById('invTotal').textContent='$'+t.toFixed(2);
+}
+
+// QR Code
+function genQR(){
+  const text=document.getElementById('qrText').value||'Hello';
+  const size=parseInt(document.getElementById('qrSize').value);
+  const preview=document.getElementById('qrPreview');
+  preview.innerHTML='';
+  const canvas=document.createElement('canvas');
+  canvas.width=canvas.height=size;
+  const ctx=canvas.getContext('2d');
+  const data=encodeURI(text);
+  const qrSize=Math.floor(size/25);
+  const img=new Image();
+  img.crossOrigin='anonymous';
+  img.onload=function(){
+    ctx.drawImage(img,0,0,size,size);
+    preview.appendChild(canvas);
+  };
+  img.src='https://api.qrserver.com/v1/create-qr-code/?size='+size+'x'+size+'&data='+data;
+}
+genQR();
+
+// Password
+function genPassword(){
+  const len=parseInt(document.getElementById('pwLen').value)||16;
+  const chars=[];
+  if(document.getElementById('pwUpper').checked)chars.push('ABCDEFGHJKLMNPQRSTUVWXYZ');
+  if(document.getElementById('pwLower').checked)chars.push('abcdefghijkmnopqrstuvwxyz');
+  if(document.getElementById('pwDigits').checked)chars.push('23456789');
+  if(document.getElementById('pwSymbols').checked)chars.push('!@#$%^&*()-_=+');
+  if(!chars.length){document.getElementById('pwOutput').textContent='Select at least one option';return}
+  const all=chars.join('');
+  let pw='';
+  for(let i=0;i<len;i++)pw+=all[Math.floor(Math.random()*all.length)];
+  document.getElementById('pwOutput').textContent=pw;
+  const s=document.getElementById('pwStrength');
+  const l=document.getElementById('pwStrengthLabel');
+  if(len<10){s.className='pw-strength weak';l.textContent='Weak — try a longer password'}
+  else if(len<14){s.className='pw-strength medium';l.textContent='Medium — decent length'}
+  else{s.className='pw-strength strong';l.textContent='Strong — good length'}
+}
+function copyPw(){
+  const pw=document.getElementById('pwOutput').textContent;
+  if(pw&&pw!=='Click Generate'){navigator.clipboard.writeText(pw);alert('Copied!')}
+}
+
+// Colors
+function updateColor(){
+  let hex=document.getElementById('colorHex').value;
+  if(!hex.startsWith('#'))hex='#'+hex;
+  if(!/^#[0-9a-fA-F]{6}$/.test(hex))return;
+  document.getElementById('colorPicker').value=hex;
+  document.getElementById('colorPreview').style.background=hex;
+  const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+  document.getElementById('colorRGB').value='rgb('+r+', '+g+', '+b+')';
+  const max=Math.max(r,g,b)/255,min=Math.min(r,g,b)/255;
+  let h=0,s=0,l=(max+min)/2;
+  if(max!==min){
+    const d=max-min;
+    s=l>0.5?d/(2-max-min):d/(max+min);
+    if(max===r/255)h=((g/255-b/255)/d+(g<b?6:0))/6;
+    else if(max===g/255)h=((b/255-r/255)/d+2)/6;
+    else h=((r/255-g/255)/d+4)/6;
+  }
+  document.getElementById('colorHSL').value='hsl('+Math.round(h*360)+', '+Math.round(s*100)+'%, '+Math.round(l*100)+'%)';
+}
+function genPalette(){
+  const base=document.getElementById('colorHex').value;
+  const r=parseInt(base.slice(1,3),16),g=parseInt(base.slice(3,5),16),b=parseInt(base.slice(5,7),16);
+  const hues=[0,30,60,120,180,240,300];
+  const container=document.getElementById('paletteContainer');
+  container.innerHTML=hues.map(h=>{
+    const nr=Math.min(255,Math.max(0,r+Math.round((h/360)*100)));
+    const ng=Math.min(255,Math.max(0,g+Math.round((h/360)*80)));
+    const nb=Math.min(255,Math.max(0,b+Math.round((h/360)*60)));
+    const hex='#'+[nr,ng,nb].map(x=>x.toString(16).padStart(2,'0')).join('');
+    return '<div class="palette-swatch" style="background:'+hex+'" onclick="document.getElementById(\'colorHex\').value=\''+hex+'\';updateColor()"><span>'+hex+'</span></div>';
+  }).join('');
+}
+updateColor();genPalette();
+
+// Markdown
+function updateMD(){
+  const md=document.getElementById('mdInput').value;
+  let html=md
+    .replace(/^### (.+)$/gm,'<h3>$1</h3>')
+    .replace(/^## (.+)$/gm,'<h2>$1</h2>')
+    .replace(/^# (.+)$/gm,'<h1>$1</h1>')
+    .replace(/\*\*(.+?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g,'<em>$1</em>')
+    .replace(/`(.+?)`/g,'<code>$1</code>')
+    .replace(/^> (.+)$/gm,'<blockquote>$1</blockquote>')
+    .replace(/^- (.+)$/gm,'<li>$1</li>')
+    .replace(/\n\n/g,'<br><br>');
+  document.getElementById('mdPreview').innerHTML=html||'<span style="color:var(--muted)">Start typing markdown...</span>';
+}
+function copyMD(){navigator.clipboard.writeText(document.getElementById('mdPreview').innerHTML);alert('HTML copied!')}
+updateMD();
+
+// URL
+function encodeUrl(){
+  const input=document.getElementById('urlInput').value;
+  document.getElementById('urlOutput').textContent=encodeURIComponent(input);
+}
+function decodeUrl(){
+  const input=document.getElementById('urlInput').value;
+  try{document.getElementById('urlOutput').textContent=decodeURIComponent(input)}catch(e){document.getElementById('urlOutput').textContent='Invalid URL encoding'}
+}
+function autoUrlCode(){
+  const v=document.getElementById('urlInput').value;
+  if(v.includes('%'))document.getElementById('urlOutput').textContent=decodeURIComponent(v);
+}
+function copyUrlResult(){navigator.clipboard.writeText(document.getElementById('urlOutput').textContent);alert('Copied!')}
+</script>
+</body>
+</html>
